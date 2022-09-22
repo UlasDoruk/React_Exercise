@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { useState } from "react";
+import "./index.css";
+import InputEx from "./components/Input/InputEx";
+import Fılter from "./components/Fılter/Fılter";
 
 function App() {
+  const [contacts,setContacts] = useState([
+  {
+    name:"Ulaş Doruk",
+    phone:"123123"
+  },
+  {
+    name:"Aslı",
+    phone:"345345"
+  },
+  {
+    name:"Karaman",
+    phone : "565656"
+  }
+  ])
+
+  useEffect(()=>{
+    console.log(contacts)
+  },[contacts])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Fılter contacts={contacts} />
+      <br></br>
+      <InputEx addContacts={setContacts} contacts={contacts}/>
     </div>
   );
 }
