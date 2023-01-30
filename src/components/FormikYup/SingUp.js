@@ -1,6 +1,5 @@
 import { Formik } from "formik";
 import SignupSchema from "./validation";
-import "../App.css"
 
 
 function SingUp() {
