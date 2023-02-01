@@ -1,17 +1,18 @@
 import "./App.css"
-import {  useEffect } from "react";
-import {init} from "./socketApi"
-import SingUp from "./components/FormikYup/SingUp";
+// import {  useEffect } from "react";
+// import {init} from "./socketApi"
+import Todo from "./components/TODO/todo";
 
 function App() {
 
-  useEffect(() => {
-    init()
-  }, []);
+  // backend server bağlama kısmı
+  // useEffect(() => {
+  //   init()
+  // }, []);
 
   return (
     <div className="App">
-      <SingUp/>
+      <Todo/>
     </div>
   );
 }
