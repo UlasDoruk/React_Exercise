@@ -1,19 +1,16 @@
 import "./App.css"
-import Counter from "./components/counterRedux/Counter"
-// import {  useEffect } from "react";
-// import {init} from "./socketApi"
+import Header from "./components/TodoRedux/Header";
+import Content from "./components/TodoRedux/Content";
+import Footer from "./components/TodoRedux/Footer";
 
 function App() {
 
-  // backend server bağlama kısmı
-  // useEffect(() => {
-  //   init()
-  // }, []);
-
   return (
-    <div className="App">
-      <Counter/>
-    </div>
+    <section className="todoapp">
+      <Header/>
+      <Content/>
+      <Footer/>
+    </section>
   );
 }
 
