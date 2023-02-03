@@ -3,40 +3,29 @@ import {useSelector} from "react-redux"
 
 function TodoList() {
 
-    const data = useSelector((state) => state.todos.items)
-
-    console.log(data)
+    const items = useSelector((state) => state.todos.items)
 
   return (
     <>
-      <section className="main">
-        <input className="toggle-all" type="checkbox" />
-        <label htmlFor="toggle-all">Mark all as complete</label>
 
         <ul className="todo-list">
-          <li className="completed">
+          {/* <li className="completed">
             <div className="view">
               <input className="toggle" type="checkbox" />
               <label>Learn JavaScript</label>
               <button className="destroy"></button>
             </div>
-          </li>
-          <li>
-            <div className="view">
-              <input className="toggle" type="checkbox" />
-              <label>Learn React</label>
-              <button className="destroy"></button>
-            </div>
-          </li>
-          <li>
-            <div className="view">
-              <input className="toggle" type="checkbox" />
-              <label>Have a life!</label>
-              <button className="destroy"></button>
-            </div>
-          </li>
+          </li> */}
+          {items.map((item)=>(
+            <li className={item.completed ? "completed" : ""} key={item.id}>
+              <div className="view">
+                <input className="toggle" type="checkbox" />
+                <label>{item.title}</label>
+                <button className="destroy"></button>
+              </div>
+            </li>
+          ))}
         </ul>
-      </section>
     </>
   );
 }
