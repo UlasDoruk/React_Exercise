@@ -1,4 +1,5 @@
 import "./App.css"
+import Counter from "./components/counterRedux/Counter"
 // import {  useEffect } from "react";
 // import {init} from "./socketApi"
 
@@ -11,6 +12,7 @@ function App() {
 
   return (
     <div className="App">
+      <Counter/>
     </div>
   );
 }
