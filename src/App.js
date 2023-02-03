@@ -1,7 +1,6 @@
 import "./App.css"
 // import {  useEffect } from "react";
 // import {init} from "./socketApi"
-import Todo from "./components/TODO/todo";
 
 function App() {
 
@@ -12,7 +11,6 @@ function App() {
 
   return (
     <div className="App">
-      <Todo/>
     </div>
   );
 }
