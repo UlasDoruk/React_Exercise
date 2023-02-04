@@ -1,5 +1,4 @@
 import React from 'react'
-import { nanoid } from "@reduxjs/toolkit";
 import { useSelector, useDispatch } from "react-redux";
 import { isCompleted,deleteTodo} from '../../redux/todo/todoSlice';
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector,useDispatch } from "react-redux";
-import { clearAll,activated } from '../../redux/todo/todoSlice';
+import { clearCompleted,activated } from '../../redux/todo/todoSlice';
 
 function ContentFooter() {
 
@@ -15,7 +15,7 @@ function ContentFooter() {
     <>
       <footer className="footer">
         <span className="todo-count">
-          <strong>{leftItems}</strong> item{leftItems > 1 && 's'} left
+          <strong>{leftItems}</strong> item{leftItems > 1 && "s"} left
         </span>
 
         <ul className="filters">
@@ -50,7 +50,7 @@ function ContentFooter() {
 
         <button
           className="clear-completed"
-          onClick={() => dispatch(clearAll())}
+          onClick={() => dispatch(clearCompleted())}
         >
           Clear completed
         </button>
