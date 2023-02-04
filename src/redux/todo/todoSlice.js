@@ -12,26 +12,32 @@ export const todoSlice = createSlice({
       {
         id: 2,
         title: "Read a Book...",
-        completed: false
+        completed: false,
       },
     ],
+    activeFilter :"all"
   },
   reducers: {
-    addTodo : (state,action)=>{
-    state.items.push(action.payload); 
+    addTodo: (state, action) => {
+      state.items.push(action.payload);
     },
-    isCompleted : (state,action)=>{
-      const {id} = action.payload
-      const item = state.items.find((item) => item.id === id)
-      item.completed = !item.completed
+    isCompleted: (state, action) => {
+      const { id } = action.payload;
+      const item = state.items.find((item) => item.id === id);
+      item.completed = !item.completed;
     },
-    deleteTodo : (state,action)=>{
-      const {id} = action.payload
-      const item = state.items.filter((item)=>item.id !== id)
-      state.items = item
-    }
+    deleteTodo: (state, action) => {
+      const { id } = action.payload;
+      const item = state.items.filter((item) => item.id !== id);
+      state.items = item;
+    },activated : (state,action)=>{
+      state.activeFilter = action.payload
+    },
+    clearAll: (state) => {
+      state.items = [];
+    },
   },
 });
 
-export const {addTodo,isCompleted,deleteTodo} = todoSlice.actions
+export const {addTodo,isCompleted,deleteTodo,activated,clearAll} = todoSlice.actions
 export default todoSlice.reducer;

@@ -5,7 +5,7 @@ function Footer() {
     <footer className="info">
       <p>Click to edit a todo</p>
       <p>
-        Created by
+        Created by{" "}
         <a href="https://www.linkedin.com/in/karamanulas/">UDK</a>
       </p>
       <p>
