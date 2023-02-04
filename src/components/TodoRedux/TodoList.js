@@ -1,8 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux";
-import { isCompleted,deleteTodo} from '../../redux/todo/todoSlice';
-
-  
+import { isCompleted,deleteTodo,getTodoAsync} from '../../redux/todo/todoSlice';
 
 function TodoList() {
 
@@ -11,6 +9,12 @@ function TodoList() {
 
     const items = useSelector((state) => state.todos.items)
     const activeFilter = useSelector((state) => state.todos.activeFilter)
+    const error = useSelector((state)=>state.todos.error)
+    const loading = useSelector((state)=>state.todos.isLoading)
+
+    useEffect(()=>{
+      dispatch(getTodoAsync()) 
+    },[dispatch])
 
     filtered = items
     if (activeFilter !== "all") {
@@ -20,11 +24,17 @@ function TodoList() {
           : todo.completed === true 
       );
     }
+
+    if(loading)
+      return <div style={{padding:16}}>Loading...</div>
+    else if(error)
+       return <div style={{ padding: 16 }}>{error}</div>;
     
 
   return (
     <>
         <ul className="todo-list">
+          {error ? "error" : ""}
           {filtered.map((item)=>(
             <li className={item.completed ? "completed" : ""} key={item.id}>
               <div className="view">
