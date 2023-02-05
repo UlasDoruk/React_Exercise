@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux";
-import { isCompleted,deleteTodo,getTodoAsync} from '../../redux/todo/todoSlice';
+import { toggleTodoAsync,getTodoAsync,deleteTodoAsync} from '../../redux/todo/todoSlice';
 
 function TodoList() {
 
@@ -16,6 +16,14 @@ function TodoList() {
       dispatch(getTodoAsync()) 
     },[dispatch])
 
+    const handleRemove = async(id)=>{
+      await dispatch(deleteTodoAsync(id))
+    }
+
+    const handleToggle = async(id,completed)=>{
+      await dispatch(toggleTodoAsync({id,data:{completed}}))
+    }
+
     filtered = items
     if (activeFilter !== "all") {
       filtered = items.filter((todo) =>
@@ -28,23 +36,29 @@ function TodoList() {
     if(loading)
       return <div style={{padding:16}}>Loading...</div>
     else if(error)
-       return <div style={{ padding: 16 }}>{error}</div>;
+       return <div style={{ padding: 16 }}>{error}</div>
     
-
   return (
     <>
-        <ul className="todo-list">
-          {error ? "error" : ""}
-          {filtered.map((item)=>(
-            <li className={item.completed ? "completed" : ""} key={item.id}>
-              <div className="view">
-                <input className="toggle" type="checkbox" onChange={()=>dispatch(isCompleted({id: item.id}))} />
-                <label>{item.title}</label>
-                <button className="destroy" onClick={()=>dispatch(deleteTodo({id : item.id}))}></button>
-              </div>
-            </li>
-          ))}
-        </ul>
+      <ul className="todo-list">
+        {error ? "error" : ""}
+        {filtered.map((item) => (
+          <li className={item.completed ? "completed" : ""} key={item.id}>
+            <div className="view">
+              <input
+                className="toggle"
+                type="checkbox"
+                onChange={() => handleToggle(item.id,!item.completed)}
+              />
+              <label>{item.title}</label>
+              <button
+                className="destroy"
+                onClick={() => handleRemove(item.id)}
+              ></button>
+            </div>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }

@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import { nanoid } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-import { addTodo } from '../../redux/todo/todoSlice';
+import { addTodoAsync } from "../../redux/todo/todoSlice";
 
 function Form() {
 
@@ -9,9 +8,9 @@ function Form() {
 
   const dispatch = useDispatch()
 
-   const  handleSubmit=(e)=>{
+   const  handleSubmit= async(e)=>{
     e.preventDefault()
-    dispatch(addTodo({id:nanoid(),title,completed:false}))
+    await dispatch(addTodoAsync({ title }));
     setTitle("")
    }
 

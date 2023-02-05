@@ -1,8 +1,24 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios"
 
 export const getTodoAsync = createAsyncThunk("todos/getTodoAsync",async()=>{
-  const res = await fetch("http://localhost:7000/todos")
-  return await res.json()
+  const res = await axios("http://localhost:7000/todos")
+  return  res.data
+})
+
+export const addTodoAsync = createAsyncThunk("todos/addTodoAsync", async (data) => {
+  const res = await axios.post("http://localhost:7000/todos", data);
+  return res.data;
+});
+
+export const toggleTodoAsync = createAsyncThunk("todos/toggleTodoAsync",async({id,data})=>{
+  const res = await axios.patch(`http://localhost:7000/todos/${id}`,data);
+  return res.data
+})
+
+export const deleteTodoAsync = createAsyncThunk("todos/deleteTodoAsync",async(id)=>{
+  const res = await axios.delete(`http://localhost:7000/todos/${id}`);
+  return res.data
 })
 
 export const todoSlice = createSlice({
@@ -11,22 +27,10 @@ export const todoSlice = createSlice({
     items: [],
     isLoading : false,
     error : null,
-    activeFilter :"all"
+    activeFilter :"all",
   },
   reducers: {
-    addTodo: (state, action) => {
-      state.items.push(action.payload);
-    },
-    isCompleted: (state, action) => {
-      const { id } = action.payload;
-      const item = state.items.find((item) => item.id === id);
-      item.completed = !item.completed;
-    },
-    deleteTodo: (state, action) => {
-      const { id } = action.payload;
-      const item = state.items.filter((item) => item.id !== id);
-      state.items = item;
-    },activated : (state,action)=>{
+    activated : (state,action)=>{
       state.activeFilter = action.payload
     },
     clearCompleted: (state) => {
@@ -42,9 +46,19 @@ export const todoSlice = createSlice({
     },[getTodoAsync.rejected] : (state,action)=>{
       state.isLoading = false
       state.error = action.error.message
+    },[addTodoAsync.fulfilled] :(state,action)=>{
+      state.items.push(action.payload)
+    },[toggleTodoAsync.fulfilled] : (state,action)=>{
+      const {id,completed} = action.payload
+      const index = state.items.findIndex((item)=> item.id === id )
+      state.items[index].completed  = completed
+    },[deleteTodoAsync.fulfilled] : (state,action)=>{
+      const  id  = action.payload;
+      const item = state.items.findIndex((item) => item.id === id);
+      state.items.splice(item,1)
     }
   }
 });
 
-export const {addTodo,isCompleted,deleteTodo,activated,clearCompleted} = todoSlice.actions
+export const {  activated, clearCompleted } = todoSlice.actions;
 export default todoSlice.reducer;
